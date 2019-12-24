@@ -1,5 +1,8 @@
 package com.akjaw
 
+import com.akjaw.errors.WikiError
+import com.akjaw.util.WikiLanguage
+import com.akjaw.util.isLanguageCorrect
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
@@ -24,11 +27,8 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     install(StatusPages) {
-        exception<Throwable> {
-            call.respond(HttpStatusCode.BadRequest)
-        }
-        status(HttpStatusCode.BadRequest){
-            call.respond(TextContent("${it.value} ${it.description}", ContentType.Text.Plain.withCharset(Charsets.UTF_8), it))
+        exception<WikiError> { cause ->
+            call.respond(HttpStatusCode.BadRequest, cause.message ?: "")
         }
     }
     install(ContentNegotiation) {
@@ -37,10 +37,12 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         get("/random-article") {
-            val language = call.request.queryParameters["language"] ?: throw NullPointerException()
+            val language: WikiLanguage = call.request.queryParameters["language"] ?: throw WikiError.LanguageMissingError()
+            if(!language.isLanguageCorrect()){
+                throw WikiError.LanguageIncorrectError()
+            }
 
             call.respond(mapOf("OK" to true))
         }
     }
-
 }
