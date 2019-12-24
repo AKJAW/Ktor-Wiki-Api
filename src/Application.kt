@@ -1,6 +1,7 @@
 package com.akjaw
 
 import com.akjaw.errors.WikiError
+import com.akjaw.routes.randomArticle
 import com.akjaw.util.WikiLanguage
 import com.akjaw.util.isLanguageCorrect
 import io.ktor.application.*
@@ -36,13 +37,6 @@ fun Application.module(testing: Boolean = false) {
     }
 
     routing {
-        get("/random-article") {
-            val language: WikiLanguage = call.request.queryParameters["language"] ?: throw WikiError.LanguageMissingError()
-            if(!language.isLanguageCorrect()){
-                throw WikiError.LanguageIncorrectError()
-            }
-
-            call.respond(mapOf("OK" to true))
-        }
+        randomArticle()
     }
 }
