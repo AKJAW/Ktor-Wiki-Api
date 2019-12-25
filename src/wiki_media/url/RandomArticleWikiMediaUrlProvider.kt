@@ -8,6 +8,7 @@ class RandomArticleUrlProvider(): WikiMediaUrlProvider {
             .addParameter("generator", "random")
             .addParameter("grnnamespace", "0")
             .addParameter("prop", "pageimages|info|extracts")
+            .addParameter("exlimit", "1")//TODO?
             .addParameter("explaintext")
             .addParameter("grnlimit", "1")
             .addParameter("inprop", "url")
