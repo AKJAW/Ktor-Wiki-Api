@@ -11,6 +11,7 @@ import io.ktor.features.StatusPages
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.routing.routing
+import ktor.injection.parserModule
 import org.koin.ktor.ext.Koin
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -29,7 +30,8 @@ fun Application.module(testing: Boolean = false) {
     install(Koin){
         modules(listOf(
             languageModule,
-            urlProviderModule
+            urlProviderModule,
+            parserModule
         ))
     }
 
