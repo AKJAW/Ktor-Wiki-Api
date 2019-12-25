@@ -1,8 +1,8 @@
-package com.akjaw.injection
+package ktor.injection
 
-import com.akjaw.wiki_media.language.LanguageTransformer
-import com.akjaw.wiki_media.language.LanguageValidator
-import com.akjaw.wiki_media.language.WikiMediaLanguageTransformer
+import wiki_media.language.LanguageTransformer
+import wiki_media.language.LanguageValidator
+import wiki_media.language.WikiMediaLanguageTransformer
 import org.koin.dsl.module
 
 private val validLanguages = listOf("pl", "en")

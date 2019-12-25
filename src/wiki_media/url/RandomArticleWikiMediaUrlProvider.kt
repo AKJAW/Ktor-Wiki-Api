@@ -1,6 +1,6 @@
-package com.akjaw.wiki_media.url
+package wiki_media.url
 
-class RandomArticleUrlProvider(): WikiMediaUrlProvider{
+class RandomArticleUrlProvider(): WikiMediaUrlProvider {
     override fun create(language: String): String {
         return WikiMediaApiUrlBuilder(language)
             .addParameter("format", "json")

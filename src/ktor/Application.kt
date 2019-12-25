@@ -1,9 +1,9 @@
-package com.akjaw
+package ktor
 
-import com.akjaw.errors.WikiError
-import com.akjaw.injection.languageModule
-import com.akjaw.injection.urlProviderModule
-import com.akjaw.routes.random_article.randomArticle
+import wiki_media.errors.WikiError
+import ktor.injection.languageModule
+import ktor.injection.urlProviderModule
+import ktor.routing.randomArticle
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.features.ContentNegotiation

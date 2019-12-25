@@ -1,9 +1,8 @@
-package com.akjaw.wiki_media
+package wiki_media
 
-import com.akjaw.errors.WikiError
-import com.akjaw.wiki_media.language.LanguageTransformer
-import com.akjaw.wiki_media.url.WikiMediaApiUrlBuilder
-import com.akjaw.wiki_media.url.WikiMediaUrlProvider
+import wiki_media.errors.WikiError
+import wiki_media.language.LanguageTransformer
+import wiki_media.url.WikiMediaUrlProvider
 import io.ktor.http.Parameters
 import org.koin.core.KoinComponent
 import org.koin.core.inject

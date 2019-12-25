@@ -1,8 +1,8 @@
-package com.akjaw.wiki_media.language
+package wiki_media.language
 
-import com.akjaw.errors.WikiError
+import wiki_media.errors.WikiError
 
-class WikiMediaLanguageTransformer(private val validator: LanguageValidator): LanguageTransformer{
+class WikiMediaLanguageTransformer(private val validator: LanguageValidator): LanguageTransformer {
     override fun transform(language: String): String {
         if(validator.isValid(language)){
             return language.toLowerCase()

@@ -1,4 +1,4 @@
-package com.akjaw.errors
+package wiki_media.errors
 
 sealed class WikiError(message: String): Throwable(message) {
     class LanguageMissingError(message: String = "Language was not provided inside query"): WikiError(message)

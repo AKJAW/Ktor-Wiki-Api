@@ -1,4 +1,4 @@
-package com.akjaw.wiki_media.language
+package wiki_media.language
 
 class LanguageValidator(validLanguages: List<String>){
     private val validLanguages = validLanguages.map { it.toLowerCase() }

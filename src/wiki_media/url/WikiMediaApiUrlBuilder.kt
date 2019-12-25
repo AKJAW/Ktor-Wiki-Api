@@ -1,4 +1,4 @@
-package com.akjaw.wiki_media.url
+package wiki_media.url
 
 internal class WikiMediaApiUrlBuilder(language: String) {
     private val parameters: MutableList<QueryParameter> = mutableListOf()
