@@ -1,11 +1,12 @@
-package com.akjaw.wiki_media
+package com.akjaw.wiki_media.url
 
-class WikiMediaApiUrlBuilder(language: String) {
+internal class WikiMediaApiUrlBuilder(language: String) {
     private val parameters: MutableList<QueryParameter> = mutableListOf()
     private val baseUrl = "https://$language.wikipedia.org/w/api.php"
 
     fun addParameter(key: String, value: String? = null): WikiMediaApiUrlBuilder {
-        val queryParameter = QueryParameter(key, value)
+        val queryParameter =
+            QueryParameter(key, value)
         parameters.add(queryParameter)
         return this
     }
