@@ -14,11 +14,13 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.qualifier.named
 import wiki_media.data.ArticleResponse
+import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.WikiMediaParser
 
 class RandomArticleRequest(queryParameters: Parameters): WikiMediaRequest, KoinComponent{
     private val languageTransformer: LanguageTransformer by inject()
     private val urlProvider: WikiMediaUrlProvider by inject(named("RandomArticle"))
+    private val apiCaller: ApiCaller by inject()
     private val parser: WikiMediaParser<JsonObject, ArticleResponse> by inject()
     private val url: String
 
@@ -30,14 +32,10 @@ class RandomArticleRequest(queryParameters: Parameters): WikiMediaRequest, KoinC
     }
 
     override suspend fun makeRequest(): String {
-        val client = HttpClient {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer()
-            }
-        }
-        val content = client.get<JsonObject>(url)
-        println(content)
-        val articleResponse: ArticleResponse = parser.parse(content)
+
+        val response: JsonObject = apiCaller.call(url)
+        val articleResponse: ArticleResponse = parser.parse(response)
+        println(articleResponse)
         return "s"
     }
 
