@@ -31,12 +31,12 @@ class RandomArticleRequest(queryParameters: Parameters): WikiMediaRequest, KoinC
         println(url)
     }
 
-    override suspend fun makeRequest(): String {
+    override suspend fun makeRequest(): ArticleResponse {
 
         val response: JsonObject = apiCaller.call(url)
         val articleResponse: ArticleResponse = parser.parse(response)
         println(articleResponse)
-        return "s"
+        return articleResponse
     }
 
 }

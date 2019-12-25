@@ -10,9 +10,7 @@ fun Routing.randomArticle(){
     get("/random-article") {
         val randomArticleRequest = RandomArticleRequest(call.request.queryParameters)
 
-        randomArticleRequest.makeRequest()
-
         //Set header to json
-        call.respond(mapOf("OK" to true))
+        call.respond(randomArticleRequest.makeRequest())
     }
 }

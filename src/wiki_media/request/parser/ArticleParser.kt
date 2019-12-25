@@ -25,12 +25,8 @@ class ArticleParser: WikiMediaParser<JsonObject, ArticleResponse>{
     }
 
     private fun createArticleResponse(articleJsonObject: JsonObject): ArticleResponse {
-
-        val image = if(articleJsonObject["original"] is JsonObject){
-            articleJsonObject.getJsonLiteralContentOrThrow("source")
-        } else {
-            null
-        }
+        val original = articleJsonObject["original"] as? JsonObject
+        val image = original?.getJsonLiteralContentOrThrow("source")
 
         return ArticleResponse(
             pageId = articleJsonObject.getJsonLiteralContentOrThrow("pageid"),
@@ -43,7 +39,7 @@ class ArticleParser: WikiMediaParser<JsonObject, ArticleResponse>{
 
     private fun JsonObject.getJsonLiteralContentOrThrow(key: String): String{
         val jsonLiteral = this[key] as? JsonLiteral
-            ?: throw WikiError.WikiResponseMissingKey.missingKey("query")
+            ?: throw WikiError.WikiResponseMissingKey.missingKey(key)
 
         return jsonLiteral.content
     }
