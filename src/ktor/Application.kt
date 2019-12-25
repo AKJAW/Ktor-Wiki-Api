@@ -1,6 +1,6 @@
 package ktor
 
-import wiki_media.errors.WikiError
+import wiki_media.error.WikiError
 import ktor.injection.languageModule
 import ktor.injection.urlProviderModule
 import ktor.routing.randomArticle

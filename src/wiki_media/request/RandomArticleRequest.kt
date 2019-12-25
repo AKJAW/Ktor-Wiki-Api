@@ -8,7 +8,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.request.get
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
-import wiki_media.errors.WikiError
+import wiki_media.error.WikiError
 import wiki_media.language.LanguageTransformer
 import wiki_media.url.WikiMediaUrlProvider
 import io.ktor.http.Parameters

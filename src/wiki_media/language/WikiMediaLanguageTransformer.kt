@@ -1,6 +1,6 @@
 package wiki_media.language
 
-import wiki_media.errors.WikiError
+import wiki_media.error.WikiError
 
 class WikiMediaLanguageTransformer(private val validator: LanguageValidator): LanguageTransformer {
     override fun transform(language: String): String {
