@@ -37,10 +37,8 @@ class RandomArticleRequest(queryParameters: Parameters): WikiMediaRequest, KoinC
         }
         val content = client.get<JsonObject>(url)
         println(content)
-        parser.parse(content)
+        val articleResponse: ArticleResponse = parser.parse(content)
         return "s"
-
-
     }
 
 }
