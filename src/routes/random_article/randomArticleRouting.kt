@@ -1,7 +1,6 @@
 package com.akjaw.routes.random_article
 
 import com.akjaw.errors.WikiError
-import com.akjaw.wiki_media.WikiMediaApiUrl
 import com.akjaw.wiki_media.language.LanguageTransformer
 import io.ktor.application.call
 import io.ktor.response.respond
@@ -17,7 +16,7 @@ fun Routing.randomArticle(){
 
         val correctLanguage = languageTransformer.transform(language)
 
-        val url = WikiMediaApiUrl.createBaseUrl(correctLanguage)
+//        val url = WikiMediaApiUrlBuilder.createBaseUrl(correctLanguage)
 
         call.respond(mapOf("OK" to true))
     }
