@@ -1,5 +1,5 @@
 package wiki_media.request.scraper
 
-interface WikiMediaScraper <T> {
+interface Scraper <T> {
     fun scrape(url: String): T
 }

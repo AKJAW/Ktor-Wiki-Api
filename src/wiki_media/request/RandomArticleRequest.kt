@@ -11,12 +11,14 @@ import org.koin.core.qualifier.named
 import wiki_media.data.ArticleResponse
 import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
+import wiki_media.request.scraper.Scraper
 
 class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinComponent{
     private val languageTransformer: LanguageTransformer by inject()
     private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider"))
     private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
     private val parser: ResponseParser<JsonObject, ArticleResponse> by inject(named("RandomArticleResponseParser"))
+    private val scraper: Scraper<List<String>> by inject()
     private val url: String
 
     init {
@@ -29,7 +31,8 @@ class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinCompone
     override suspend fun makeRequest(): ArticleResponse {
         val response: JsonObject = apiCaller.call(url)
         val articleResponse: ArticleResponse = parser.parse(response)
-
+        val titles = scraper.scrape(articleResponse.url)
+        print(titles)
         return articleResponse
     }
 
