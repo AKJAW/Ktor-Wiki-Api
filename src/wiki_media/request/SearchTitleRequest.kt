@@ -15,10 +15,7 @@ import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
 import wiki_media.request.scraper.Scraper
 
-class SearchTitleRequest(language: String, title: String): ApiRequest<String>, KoinComponent{
-    private val urlProvider: ApiUrlProvider by inject(named("SearchTitleUrlProvider")) {
-        parametersOf(language, title)
-    }
+class SearchTitleRequest(urlProvider: ApiUrlProvider): ApiRequest<String>, KoinComponent{
     private val url = urlProvider.create()
     private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
     private val parser: ResponseParser<JsonObject, String> by inject(named("SearchTitleResponseParser"))

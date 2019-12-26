@@ -15,14 +15,11 @@ import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
 import wiki_media.request.scraper.Scraper
 
-class RandomArticleRequest(language: String): ApiRequest<WikiApiArticle>, KoinComponent{
-    private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider")) {
-        parametersOf(language)
-    }
+class RandomArticleRequest(urlProvider: ApiUrlProvider): ApiRequest<WikiApiArticle>, KoinComponent{
+    private val url = urlProvider.create()
     private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
     private val parser: ResponseParser<JsonObject, ApiArticleResponse> by inject(named("RandomArticleResponseParser"))
     private val scraper: Scraper<List<String>> by inject()
-    private val url = urlProvider.create()
 
     override suspend fun makeRequest(): WikiApiArticle {
         val response: JsonObject = apiCaller.call(url)
