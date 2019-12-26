@@ -22,16 +22,15 @@ private val languageModule = module {
 }
 
 private val urlProviderModule = module {
-    single(named("RandomArticle")) { RandomArticleApiUrlProvider() } bind ApiUrlProvider::class
+    single(named("RandomArticleUrlProvider")) { RandomArticleApiUrlProvider() } bind ApiUrlProvider::class
 }
 
-//Should be single?
 private val apiModule = module {
-    single { ApiCallerImpl() } bind ApiCaller::class
+    single(named("ApiCaller")) { ApiCallerImpl() } bind ApiCaller::class
 }
 
 private val parserModule = module {
-    single { ArticleParser() as ResponseParser<JsonObject, ArticleResponse> }
+    single(named("RandomArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ArticleResponse> }
 }
 
 val requestModules = listOf(

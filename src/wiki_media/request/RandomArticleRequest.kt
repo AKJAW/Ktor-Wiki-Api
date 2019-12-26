@@ -14,9 +14,9 @@ import wiki_media.request.parser.ResponseParser
 
 class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinComponent{
     private val languageTransformer: LanguageTransformer by inject()
-    private val urlProvider: ApiUrlProvider by inject(named("RandomArticle"))
-    private val apiCaller: ApiCaller by inject()
-    private val parser: ResponseParser<JsonObject, ArticleResponse> by inject()
+    private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider"))
+    private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
+    private val parser: ResponseParser<JsonObject, ArticleResponse> by inject(named("RandomArticleResponseParser"))
     private val url: String
 
     init {
@@ -29,7 +29,7 @@ class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinCompone
     override suspend fun makeRequest(): ArticleResponse {
         val response: JsonObject = apiCaller.call(url)
         val articleResponse: ArticleResponse = parser.parse(response)
-        println(articleResponse)
+
         return articleResponse
     }
 

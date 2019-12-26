@@ -6,7 +6,7 @@ import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import kotlinx.serialization.json.JsonObject
 
-class ApiCallerImpl: ApiCaller{
+class ApiCallerImpl: ApiCaller<JsonObject>{
     override suspend fun call(url: String): JsonObject {
         val client = HttpClient {
             install(JsonFeature) {
