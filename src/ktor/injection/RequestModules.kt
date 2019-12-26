@@ -16,6 +16,7 @@ import wiki_media.request.parser.SearchParser
 import wiki_media.request.scraper.ArticleLinkScraper
 import wiki_media.request.scraper.Scraper
 import wiki_media.request.url.ApiUrlProvider
+import wiki_media.request.url.ArticleFromPageIdUrlProvider
 import wiki_media.request.url.RandomArticleApiUrlProvider
 import wiki_media.request.url.SearchTitleApiUrlProvider
 
@@ -29,9 +30,13 @@ private val urlProviderModule = module {
     factory(named("RandomArticleUrlProvider")) {
         RandomArticleApiUrlProvider(it[0])
     } bind ApiUrlProvider::class
-    factory(named("SearchTitleUrlProvider")) {
-        SearchTitleApiUrlProvider(it[0], it[1])
-    } bind ApiUrlProvider::class
+//    factory(named("SearchTitleUrlProvider")) {
+//        SearchTitleApiUrlProvider(it[0], it[1])
+//    } bind ApiUrlProvider::class
+
+//    factory(named("ArticleFromPageIdUrlProvider")) {
+//        ArticleFromPageIdUrlProvider(it[0], it[1])
+//    } bind ApiUrlProvider::class
 }
 
 private val apiModule = module {
@@ -39,7 +44,7 @@ private val apiModule = module {
 }
 
 private val parserModule = module {
-    single(named("RandomArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ApiArticleResponse> }
+    single(named("ArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ApiArticleResponse> }
     single(named("SearchTitleResponseParser")) { SearchParser() as ResponseParser<JsonObject, String> }
 }
 

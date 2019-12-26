@@ -1,12 +1,10 @@
 package ktor.routing
 
-import wiki_media.request.RandomArticleRequest
+import wiki_media.request.ArticleContentRequest
 import io.ktor.application.call
-import io.ktor.http.Parameters
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import org.koin.core.inject
 import org.koin.ktor.ext.inject
 import wiki_media.error.WikiError
 import wiki_media.language.LanguageTransformer
@@ -20,9 +18,8 @@ fun Routing.randomArticle(){
         val language = languageTransformer.transform(languageParameter)
 
         val provider = RandomArticleApiUrlProvider(language)
-        val randomArticleRequest = RandomArticleRequest(provider)
+        val randomArticleRequest = ArticleContentRequest(provider)
 
-        //Set header to json
         call.respond(randomArticleRequest.makeRequest())
     }
 }
