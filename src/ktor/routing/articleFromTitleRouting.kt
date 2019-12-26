@@ -10,16 +10,17 @@ import org.koin.core.inject
 import org.koin.ktor.ext.inject
 import wiki_media.error.WikiError
 import wiki_media.language.LanguageTransformer
+import wiki_media.request.SearchTitleRequest
 
-fun Routing.randomArticle(){
+fun Routing.articleFromTitle(){
     val languageTransformer: LanguageTransformer by inject()
 
-    get("/random-article") {
+    get("/article-from-title") {
         val languageParameter = call.request.queryParameters["language"] ?: throw WikiError.LanguageMissingError()
         val language = languageTransformer.transform(languageParameter)
+        val title = call.request.queryParameters["title"] ?: throw WikiError.TitleMissingError()
 
-        val randomArticleRequest = RandomArticleRequest(language)
-
+        val randomArticleRequest = SearchTitleRequest(language, title)
         //Set header to json
         call.respond(randomArticleRequest.makeRequest())
     }

@@ -10,6 +10,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.routing.routing
 import ktor.injection.requestModules
+import ktor.routing.articleFromTitle
 import org.koin.ktor.ext.Koin
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -31,5 +32,6 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         randomArticle()
+        articleFromTitle()
     }
 }

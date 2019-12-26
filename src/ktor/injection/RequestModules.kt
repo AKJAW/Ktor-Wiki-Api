@@ -28,6 +28,9 @@ private val urlProviderModule = module {
     factory(named("RandomArticleUrlProvider")) {
         RandomArticleApiUrlProvider(it[0])
     } bind ApiUrlProvider::class
+    factory(named("SearchTitleUrlProvider")) {
+        SearchTitleApiUrlProvider(it[0], it[1])
+    } bind ApiUrlProvider::class
 }
 
 private val apiModule = module {
