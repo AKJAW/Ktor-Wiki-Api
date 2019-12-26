@@ -4,7 +4,7 @@ import kotlinx.serialization.json.JsonObject
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import wiki_media.data.ArticleResponse
+import wiki_media.data.ApiArticleResponse
 import wiki_media.language.LanguageTransformer
 import wiki_media.language.LanguageValidator
 import wiki_media.language.WikiMediaLanguageTransformer
@@ -32,7 +32,7 @@ private val apiModule = module {
 }
 
 private val parserModule = module {
-    single(named("RandomArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ArticleResponse> }
+    single(named("RandomArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ApiArticleResponse> }
 }
 
 private val scraperModule = module {

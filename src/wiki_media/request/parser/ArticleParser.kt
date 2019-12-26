@@ -2,11 +2,11 @@ package wiki_media.request.parser
 
 import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
-import wiki_media.data.ArticleResponse
+import wiki_media.data.ApiArticleResponse
 import wiki_media.error.WikiError
 
-class ArticleParser: ResponseParser<JsonObject, ArticleResponse>{
-    override fun parse(content: JsonObject): ArticleResponse {
+class ArticleParser: ResponseParser<JsonObject, ApiArticleResponse>{
+    override fun parse(content: JsonObject): ApiArticleResponse {
         val articleJsonObject = getArticleJson(content)
         return createArticleResponse(articleJsonObject)
     }
@@ -24,11 +24,11 @@ class ArticleParser: ResponseParser<JsonObject, ArticleResponse>{
             ?: throw WikiError.WikiResponseMissingKey.missingKey("query")
     }
 
-    private fun createArticleResponse(articleJsonObject: JsonObject): ArticleResponse {
+    private fun createArticleResponse(articleJsonObject: JsonObject): ApiArticleResponse {
         val original = articleJsonObject["original"] as? JsonObject
         val image = original?.getJsonLiteralContentOrThrow("source")
 
-        return ArticleResponse(
+        return ApiArticleResponse(
             pageId = articleJsonObject.getJsonLiteralContentOrThrow("pageid"),
             name = articleJsonObject.getJsonLiteralContentOrThrow("title"),
             description = articleJsonObject.getJsonLiteralContentOrThrow("extract"), //TODO check for an alternative

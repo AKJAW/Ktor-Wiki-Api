@@ -8,7 +8,8 @@ import kotlinx.serialization.json.JsonObject
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.qualifier.named
-import wiki_media.data.ArticleResponse
+import wiki_media.data.ApiArticleResponse
+import wiki_media.data.WikiApiArticle
 import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
 import wiki_media.request.scraper.Scraper
@@ -17,7 +18,7 @@ class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinCompone
     private val languageTransformer: LanguageTransformer by inject()
     private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider"))
     private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
-    private val parser: ResponseParser<JsonObject, ArticleResponse> by inject(named("RandomArticleResponseParser"))
+    private val parser: ResponseParser<JsonObject, ApiArticleResponse> by inject(named("RandomArticleResponseParser"))
     private val scraper: Scraper<List<String>> by inject()
     private val url: String
 
@@ -28,12 +29,12 @@ class RandomArticleRequest(queryParameters: Parameters): ApiRequest, KoinCompone
         println(url)
     }
 
-    override suspend fun makeRequest(): ArticleResponse {
+    override suspend fun makeRequest(): WikiApiArticle {
         val response: JsonObject = apiCaller.call(url)
-        val articleResponse: ArticleResponse = parser.parse(response)
-        val titles = scraper.scrape(articleResponse.url)
+        val apiArticleResponse: ApiArticleResponse = parser.parse(response)
+        val titles = scraper.scrape(apiArticleResponse.url)
         print(titles)
-        return articleResponse
+        return WikiApiArticle(apiArticleResponse, titles)
     }
 
 }

@@ -1,6 +1,6 @@
 package wiki_media.data
 
-data class ArticleResponse(
+data class ApiArticleResponse(
     val pageId: String = "",
     val name: String = "",
     val description: String = "",
