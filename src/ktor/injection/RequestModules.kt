@@ -16,6 +16,7 @@ import wiki_media.request.scraper.ArticleLinkScraper
 import wiki_media.request.scraper.Scraper
 import wiki_media.request.url.ApiUrlProvider
 import wiki_media.request.url.RandomArticleApiUrlProvider
+import wiki_media.request.url.SearchTitleApiUrlProvider
 
 private val validLanguages = listOf("pl", "en")
 private val languageModule = module {
@@ -24,7 +25,9 @@ private val languageModule = module {
 }
 
 private val urlProviderModule = module {
-    single(named("RandomArticleUrlProvider")) { RandomArticleApiUrlProvider() } bind ApiUrlProvider::class
+    factory(named("RandomArticleUrlProvider")) {
+        RandomArticleApiUrlProvider(it[0])
+    } bind ApiUrlProvider::class
 }
 
 private val apiModule = module {

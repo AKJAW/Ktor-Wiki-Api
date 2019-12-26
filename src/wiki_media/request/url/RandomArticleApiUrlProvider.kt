@@ -1,7 +1,7 @@
 package wiki_media.request.url
 
-class RandomArticleApiUrlProvider: ApiUrlProvider {
-    override fun create(language: String): String {
+class RandomArticleApiUrlProvider(private val language: String): ApiUrlProvider {
+    override fun create(): String {
         return ApiQueryUrlBuilder(language)
             .addParameter("format", "json")
             .addParameter("action", "query")
