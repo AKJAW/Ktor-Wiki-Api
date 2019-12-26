@@ -11,9 +11,9 @@ import wiki_media.language.WikiMediaLanguageTransformer
 import wiki_media.request.api.ApiCaller
 import wiki_media.request.api.ApiCallerImpl
 import wiki_media.request.parser.ArticleParser
-import wiki_media.request.parser.WikiMediaParser
-import wiki_media.url.RandomArticleUrlProvider
-import wiki_media.url.WikiMediaUrlProvider
+import wiki_media.request.parser.ResponseParser
+import wiki_media.request.url.ApiUrlProvider
+import wiki_media.request.url.RandomArticleApiUrlProvider
 
 private val validLanguages = listOf("pl", "en")
 private val languageModule = module {
@@ -22,7 +22,7 @@ private val languageModule = module {
 }
 
 private val urlProviderModule = module {
-    single(named("RandomArticle")) { RandomArticleUrlProvider() } bind WikiMediaUrlProvider::class
+    single(named("RandomArticle")) { RandomArticleApiUrlProvider() } bind ApiUrlProvider::class
 }
 
 //Should be single?
@@ -31,7 +31,7 @@ private val apiModule = module {
 }
 
 private val parserModule = module {
-    single { ArticleParser() as WikiMediaParser<JsonObject, ArticleResponse> }
+    single { ArticleParser() as ResponseParser<JsonObject, ArticleResponse> }
 }
 
 val requestModules = listOf(

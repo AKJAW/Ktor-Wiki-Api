@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonObject
 import wiki_media.data.ArticleResponse
 import wiki_media.error.WikiError
 
-class ArticleParser: WikiMediaParser<JsonObject, ArticleResponse>{
+class ArticleParser: ResponseParser<JsonObject, ArticleResponse>{
     override fun parse(content: JsonObject): ArticleResponse {
         val articleJsonObject = getArticleJson(content)
         return createArticleResponse(articleJsonObject)
