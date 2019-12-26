@@ -12,6 +12,7 @@ import wiki_media.request.api.ApiCaller
 import wiki_media.request.api.ApiCallerImpl
 import wiki_media.request.parser.ArticleParser
 import wiki_media.request.parser.ResponseParser
+import wiki_media.request.parser.SearchParser
 import wiki_media.request.scraper.ArticleLinkScraper
 import wiki_media.request.scraper.Scraper
 import wiki_media.request.url.ApiUrlProvider
@@ -39,6 +40,7 @@ private val apiModule = module {
 
 private val parserModule = module {
     single(named("RandomArticleResponseParser")) { ArticleParser() as ResponseParser<JsonObject, ApiArticleResponse> }
+    single(named("SearchTitleResponseParser")) { SearchParser() as ResponseParser<JsonObject, String> }
 }
 
 private val scraperModule = module {

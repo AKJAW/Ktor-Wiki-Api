@@ -7,6 +7,7 @@ import io.ktor.http.Parameters
 import kotlinx.serialization.json.JsonObject
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import wiki_media.data.ApiArticleResponse
 import wiki_media.data.WikiApiArticle
@@ -14,21 +15,19 @@ import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
 import wiki_media.request.scraper.Scraper
 
-class SearchTitleRequest(language: String, title: String): ApiRequest, KoinComponent{
-    private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider"))
-    private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
-    private val parser: ResponseParser<JsonObject, ApiArticleResponse> by inject(named("RandomArticleResponseParser"))
-    private val scraper: Scraper<List<String>> by inject()
+class SearchTitleRequest(language: String, title: String): ApiRequest<String>, KoinComponent{
+    private val urlProvider: ApiUrlProvider by inject(named("SearchTitleUrlProvider")) {
+        parametersOf(language, title)
+    }
     private val url = urlProvider.create()
+    private val apiCaller: ApiCaller<JsonObject> by inject(named("ApiCaller"))
+    private val parser: ResponseParser<JsonObject, String> by inject(named("SearchTitleResponseParser"))
 
-    override suspend fun makeRequest(): WikiApiArticle {
+    override suspend fun makeRequest(): String {
         val response: JsonObject = apiCaller.call(url)
-        val apiArticleResponse: ApiArticleResponse = parser.parse(response)
-//        val titles = scraper.scrape(apiArticleResponse.url)
-//        print(titles)
-//        return WikiApiArticle(apiArticleResponse, titles)
+        val articlePageId: String = parser.parse(response)
 
-        return WikiApiArticle(ApiArticleResponse(), listOf())
+        return articlePageId
     }
 
 }

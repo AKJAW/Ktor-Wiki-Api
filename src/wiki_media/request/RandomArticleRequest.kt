@@ -15,7 +15,7 @@ import wiki_media.request.api.ApiCaller
 import wiki_media.request.parser.ResponseParser
 import wiki_media.request.scraper.Scraper
 
-class RandomArticleRequest(language: String): ApiRequest, KoinComponent{
+class RandomArticleRequest(language: String): ApiRequest<WikiApiArticle>, KoinComponent{
     private val urlProvider: ApiUrlProvider by inject(named("RandomArticleUrlProvider")) {
         parametersOf(language)
     }
