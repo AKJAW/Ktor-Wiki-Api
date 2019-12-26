@@ -8,7 +8,7 @@ class RandomArticleApiUrlProvider(private val language: String): ApiUrlProvider 
             .addParameter("generator", "random")
             .addParameter("grnnamespace", "0")
             .addParameter("prop", "pageimages|info|extracts")
-            .addParameter("exlimit", "1")//TODO?
+            .addParameter("exlimit", "1")
             .addParameter("explaintext")
             .addParameter("grnlimit", "1")
             .addParameter("inprop", "url")

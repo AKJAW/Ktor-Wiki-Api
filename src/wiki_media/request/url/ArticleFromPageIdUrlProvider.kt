@@ -6,7 +6,7 @@ class ArticleFromPageIdUrlProvider(private val language: String, private val pag
             .addParameter("format", "json")
             .addParameter("action", "query")
             .addParameter("prop", "pageimages|info|extracts")
-            .addParameter("exlimit", "1")//TODO?
+            .addParameter("exlimit", "1")
             .addParameter("explaintext")
             .addParameter("inprop", "url")
             .addParameter("piprop", "original")
